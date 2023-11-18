@@ -477,7 +477,7 @@ imgui.OnFrame(function() return updateFrame[0] end,
          imgui.PushFont(fonts[25])
          imgui.FText(u8'Доступно обновление! Новая версия:', 25)
          imgui.SameLine()
-         imgui.TextColored(imgui.ImVec4(rainbow(2)), u8'#'..upd_res.version)
+         --imgui.TextColored(imgui.ImVec4(rainbow(2)), u8'#'..upd_res.version)
          imgui.PopFont()
 
          imgui.NewLine()
