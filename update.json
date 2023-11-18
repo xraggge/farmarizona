@@ -1,0 +1,11 @@
+{
+    "version": "1.6",
+    "url": "https://raw.githubusercontent.com/nist1-scripter/Telegram-Control/main/Telegram%20Control.lua",
+    "changelog": {
+        "1.6": [
+            "Логирование голодания персонажа",
+            "Употребление еды через Telegram",
+            "Логирование входящих вызовов"
+        ]
+    }
+}
