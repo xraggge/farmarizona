@@ -1,6 +1,6 @@
 script_name('FARMBOT')
 script_author('xrage')
-script_version("1.7")
+script_version("1.8")
 
 local imgui_check, imgui			= pcall(require, 'mimgui')
 local samp_check, samp				= pcall(require, 'samp.events')
