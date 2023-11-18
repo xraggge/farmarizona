@@ -1,4 +1,4 @@
-script_name('Telegram Control')
+script_name('FARMBOT')
 script_author('xrage')
 script_version("1.7")
 
@@ -30,9 +30,9 @@ if not imgui_check or not samp_check or not effil_check or not requests_check th
 		}
 		local libs_no_found = {}
 		for k, v in pairs(libs) do
-			if not v then sampAddChatMessage('[Telegram Control]{FFFFFF} У Вас отсутствует библиотека {308ad9}' .. k .. '{FFFFFF}. Без неё скрипт {308ad9}не будет {FFFFFF}работать!', 0x308ad9); table.insert(libs_no_found, k) end
+			if not v then sampAddChatMessage('[FARMBOT]{FFFFFF} У Вас отсутствует библиотека {308ad9}' .. k .. '{FFFFFF}. Без неё скрипт {308ad9}не будет {FFFFFF}работать!', 0x308ad9); table.insert(libs_no_found, k) end
 		end
-		sampShowDialog(18364, '{308ad9}Telegram Control', string.format('{FFFFFF}В Вашей сборке {308ad9}нету необходимых библиотек{FFFFFF} для работы скрипта.\nБез них он {308ad9}не будет{FFFFFF} работать!\n\nБиблиотеки, которые Вам нужны:\n{FFFFFF}- {308ad9}%s\n\n{FFFFFF}Все библиотеки можно скачать на BlastHack: {308ad9}https://www.blast.hk/threads/190315/\n{FFFFFF}Там же Вы {308ad9}найдете инструкцию {FFFFFF}для их установки.', table.concat(libs_no_found, '\n{FFFFFF}- {7172ee}')), 'Принять', '', 0)
+		sampShowDialog(18364, '{308ad9}FARMBOT', string.format('{FFFFFF}В Вашей сборке {308ad9}нету необходимых библиотек{FFFFFF} для работы скрипта.\nБез них он {308ad9}не будет{FFFFFF} работать!\n\nБиблиотеки, которые Вам нужны:\n{FFFFFF}- {308ad9}%s\n\n{FFFFFF}Все библиотеки можно скачать на BlastHack: {308ad9}https://www.blast.hk/threads/190315/\n{FFFFFF}Там же Вы {308ad9}найдете инструкцию {FFFFFF}для их установки.', table.concat(libs_no_found, '\n{FFFFFF}- {7172ee}')), 'Принять', '', 0)
 		thisScript():unload()
 	end
 	return
@@ -43,7 +43,7 @@ if not doesDirectoryExist(u8(getWorkingDirectory()..'\\Telegram Control')) then
       function main()
 	   	if not isSampfuncsLoaded() or not isSampLoaded() then return end
 	   	while not isSampAvailable() do wait(100) end
-	   	sampAddChatMessage('[Telegram Control]{FFFFFF} Отсутствуют файлы для корректной работы скрипта.', 0x308ad9)
+	   	sampAddChatMessage('[FARMBOT]{FFFFFF} Отсутствуют файлы для корректной работы скрипта.', 0x308ad9)
 	   	thisScript():unload()
 	   end
 	   return
@@ -471,13 +471,13 @@ imgui.OnFrame(function() return updateFrame[0] end,
       imgui.SetNextWindowPos(imgui.ImVec2(select(1, getScreenResolution()) / 2, select(2, getScreenResolution()) / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 	   imgui.SetNextWindowSize(imgui.ImVec2(700, 400), imgui.Cond.FirstUseEver)
 		imgui.Begin('update', update, imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoTitleBar)
-         imgui.SetCursorPosX((imgui.GetWindowWidth() - getSize(u8('Telegram Control'), 30).x) / 2 )
-         imgui.FText('Telegram Control', 30)
+         imgui.SetCursorPosX((imgui.GetWindowWidth() - getSize(u8('FARMBOT'), 30).x) / 2 )
+         imgui.FText('FARMBOT', 30)
          imgui.Separator()
          imgui.PushFont(fonts[25])
          imgui.FText(u8'Доступно обновление! Новая версия:', 25)
          imgui.SameLine()
-         --imgui.TextColored(imgui.ImVec4(rainbow(2)), u8'#'..upd_res.version)
+         imgui.TextColored(imgui.ImVec4(rainbow(2)), u8'#'..upd_res.version)
          imgui.PopFont()
 
          imgui.NewLine()
