@@ -1,6 +1,6 @@
 script_name('Telegram Control')
 script_author('xrage')
-script_version("1.6")
+script_version("1.7")
 
 local imgui_check, imgui			= pcall(require, 'mimgui')
 local samp_check, samp				= pcall(require, 'samp.events')
