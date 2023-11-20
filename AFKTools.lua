@@ -1,6 +1,6 @@
 script_name('AFK Tools')
 script_author("Bakhusse & Mamashin")
-script_version('3.0.5')
+script_version('3.0.6')
 script_properties('work-in-pause')
 
 local dlstatus = require("moonloader").download_status
@@ -672,7 +672,7 @@ local _message = {}
 local chat = "https://vk.me/join/OznKTxWIyyzo20jNxgdqqNkop85ZPJE1Xa0="
 
 local style_selected = imgui.ImInt(mainIni.theme.style) 
-local style_list = {u8"Тёмная [AFKTools]", u8'Светлая [AFKTools]\n\n', u8"Серая [BlastHack]", u8"Тёмная [BlastHack]", u8"Вишнёвая [BlastHack]", u8"Фиолетовая [BlastHack]", u8'Светло-Розовая [BlastHack]'}
+local style_list = {u8"Тёмная", u8'Светлая\n\n', u8"Серая [BlastHack]", u8"Тёмная [BlastHack]", u8"Вишнёвая [BlastHack]", u8"Фиолетовая [BlastHack]", u8'Светло-Розовая [BlastHack]'}
 
 local banner = imgui.CreateTextureFromFile(getWorkingDirectory() .. "\\resource\\AFKTools\\script_banner.png")
 
@@ -1436,7 +1436,7 @@ function sendvknotf(msg, host)
 	host = host or sampGetCurrentServerName()
 	local acc = sampGetPlayerNickname(select(2,sampGetPlayerIdByCharHandle(playerPed))) .. '['..select(2,sampGetPlayerIdByCharHandle(playerPed))..']'
 	msg = msg:gsub('{......}', '')
-	msg = '[AFK Tools | Notifications | '..acc..' | '..host..']\n'..msg
+	msg = '[Notification | '..acc..' | '..host..']\n\n'..msg
 	msg = u8(msg)
 	msg = url_encode(msg)
 	local keyboard = vkKeyboard()
@@ -1529,9 +1529,9 @@ function sendtgnotf(msg)
 	host = host or sampGetCurrentServerName()
 	local acc = sampGetPlayerNickname(select(2,sampGetPlayerIdByCharHandle(playerPed))) .. '['..select(2,sampGetPlayerIdByCharHandle(playerPed))..']'
     msg = msg:gsub('{......}', '')
-    msg = '[AFK Tools | Notifications | '..acc..' | '..host..']\n'..msg
+    msg = '[Notification | '..acc..' | '..host..']\n\n'..msg
     msg = encodeUrl1(msg)
-	async_http_request2('https://api.telegram.org/bot' .. tgnotf.token.v .. '/sendMessage?chat_id=' .. tgnotf.user_id.v .. '&reply_markup={"keyboard": [["Info", "Stats", "Hungry"], ["Enable auto-opening", "Last 10 lines of chat"], ["Send Dialogs", "Support"]], "resize_keyboard": true}&text='..msg,'', function(result) end)
+	async_http_request2('https://api.telegram.org/bot' .. tgnotf.token.v .. '/sendMessage?chat_id=' .. tgnotf.user_id.v .. '&reply_markup={"keyboard": [["Информация", "Статистика", "Голод"], [".", "Последние 10 сообщений"], ["Отправка диалогов", "Помощь"]], "resize_keyboard": true}&text='..msg,'', function(result) end)
 	end
 end
 
@@ -2867,7 +2867,7 @@ function imgui.OnDrawFrame()
 				{fa.ICON_COGS .. u8(' Кастомизация'),6,u8('Выбор стиля, изменение темы скирпта')},
 				{fa.ICON_SEARCH .. u8(' Поиск в чате'),7,u8('Отправляет нужные сообщения \n                  с чата в ') .. fa.ICON_VK .. u8(' и ') .. fa.ICON_TELEGRAM},
 				{fa.ICON_VK .. u8(' Notifications'),8,u8('Уведомления в ВКонтакте')},
-				{fa.ICON_TELEGRAM .. u8(' Notifications [Beta]'),9,u8('Уведомления в Telegram')}
+				{fa.ICON_TELEGRAM .. u8(' Notifications'),9,u8('Уведомления в Telegram')}
 			}
 
 			local function renderbutton(i)
