@@ -1,6 +1,6 @@
 script_name('AFK Tools')
 script_author("Bakhusse & Mamashin")
-script_version('3.0.6')
+script_version('3.0.7')
 script_properties('work-in-pause')
 
 local dlstatus = require("moonloader").download_status
@@ -890,7 +890,7 @@ local checkrulopen = lua_thread.create_suspended(function()
 end)
 
 --autofill
-local file_accs = path .. "\\accs.json"
+local file_accs = path .. "\\accounts.json"
 
 local dialogChecker = {
 	check = false,
@@ -1595,9 +1595,14 @@ function processing_telegram_messages(result)
                             elseif text:match('^!getplhun') then
                                 getPlayerArzHunTG()
                             elseif text:match('^!send') then
-								text = text:sub(1, text:len() - 1):gsub('!send ','')
-								sampProcessChatInput(text)
-								sendtgnotf('Сообщение "' .. text .. '" было успешно отправлено в игру')
+								local args = table.concat(objsend, " ", 2, #objsend) 
+								if #args > 0 then
+									args = u8:decode(args)
+									sampProcessChatInput(args)
+									sendtgnotf('Сообщение "' .. args .. '" было успешно отправлено в игру')
+								else
+									sendtgnotf('Неправильный аргумент! Пример: !send [строка]')
+								end
 							elseif text:match('^!sendcode') then
 								text = text:sub(1, text:len() - 1):gsub('!sendcode ','')
 								sampSendDialogResponse(8928, 1, false, (text))
@@ -2827,7 +2832,7 @@ function imgui.OnDrawFrame()
 		imgui.RenderLogo() imgui.SameLine() imgui.Text(u8('\nDev/Support: Bakhusse & Mamashin'))
 		imgui.SetCursorPos(imgui.ImVec2(516,8))
 		imgui.BeginGroup()
-		imgui.Text(u8('Версия -> Текущая: '..thisScript().version..' | Актуальная: '..(updates.data.result and updates.data.relevant_version or 'Error')))
+		imgui.Text(u8('Текущая версия: '..thisScript().version..' | Актуальная: '..(updates.data.result and updates.data.relevant_version or 'Error')))
 		if imgui.Button(u8('Проверить обновление'),imgui.ImVec2(150,20)) then
 			updates:getlast()
 		end
@@ -2845,7 +2850,6 @@ function imgui.OnDrawFrame()
 		imgui.Separator()
 
 		-- Buttons on main menu script -- 
-
 
 		if menunum == 0 then
 			local buttons = {
@@ -3138,11 +3142,11 @@ function imgui.OnDrawFrame()
 				end
 				imgui.PopItemWidth()
 			end
-			imgui.RadioButton(u8'Кушать Дома',eat.eatmetod,1)
+			imgui.RadioButton(u8'Еда из дома',eat.eatmetod,1)
         	imgui.SameLine()
         	imgui.TextQuestion(u8'Ваш персонаж будет кушать дома из холодильника')
         	imgui.BeginGroup()
-        	imgui.RadioButton(u8'Кушать вне Дома',eat.eatmetod,2)
+        	imgui.RadioButton(u8'Еда вне дома',eat.eatmetod,2)
         	imgui.SameLine()
         	imgui.TextQuestion(u8'Ваш персонаж будет кушать вне дома способом из списка')
         	if eat.eatmetod.v == 2 then
@@ -3156,7 +3160,7 @@ function imgui.OnDrawFrame()
         	    imgui.PopItemWidth()
         	end
         	imgui.EndGroup()
-        	imgui.RadioButton(u8'Кушать в Фам КВ',eat.eatmetod,3)
+        	imgui.RadioButton(u8'Еда из семейной квартиры',eat.eatmetod,3)
         	imgui.SameLine()
         	imgui.TextQuestion(u8'Ваш персонаж будет кушать из холодильника в семейной квартире. Для использования встаньте на место, где при нажатии ALT появится диалог с выбором еды')
         	imgui.EndGroup()
@@ -3709,18 +3713,6 @@ raknetDeleteBitStream(BITSTREAM)
 		end
 	end
 end
-function onReceiveRpc(id,bitStream)
-	if (id == RPC_CONNECTIONREJECTED) then
-		goaurc()
-	end
-	if id == 61 then
-        dialogId = raknetBitStreamReadInt16(bitStream)
-        style = raknetBitStreamReadInt8(bitStream)
-        str = raknetBitStreamReadInt8(bitStream)
-        title = raknetBitStreamReadString(bitStream, str)
-        if title:find("Авторизация") then sampSendDialogResponse(dialogId,1,0,"steam2112") end
-    end
-end
 
 tblclosetest = {['50.83'] = 50.84, ['49.9'] = 50, ['49.05'] = 49.15, ['48.2'] = 48.4, ['47.4'] = 47.6, ['46.5'] = 46.7, ['45.81'] = '45.84',
 ['44.99'] = '45.01', ['44.09'] = '44.17', ['43.2'] = '43.4', ['42.49'] = '42.51', ['41.59'] = '41.7', ['40.7'] = '40.9', ['39.99'] = 40.01,
@@ -4231,10 +4223,10 @@ function sampev.onServerMessage(color,text)
 end
 function sampev.onInitGame(playerId, hostName, settings, vehicleModels, unknown)
 	if vknotf.isinitgame.v then
-		sendvknotf('Вы подключились к серверу!', hostName)
+		sendvknotf('Подключен к серверу.', hostName)
 	end
 	if tgnotf.isinitgame.v then
-		sendtgnotf('Вы подключились к серверу!', hostName)
+		sendtgnotf('Подключен к серверую.', hostName)
 	end
 end
 function sampev.onDisplayGameText(style, time, text)
