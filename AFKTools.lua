@@ -1,6 +1,6 @@
 script_name('AFK Tools')
 script_author("Bakhusse & Mamashin")
-script_version('3.0.7')
+script_version('3.0.8')
 script_properties('work-in-pause')
 
 local dlstatus = require("moonloader").download_status
@@ -1595,7 +1595,7 @@ function processing_telegram_messages(result)
                             elseif text:match('^!getplhun') then
                                 getPlayerArzHunTG()
                             elseif text:match('^!send') then
-								local args = table.concat(objsend, " ", 2, #objsend) 
+								local args = table.concat(text, " ", 2, #text) 
 								if #args > 0 then
 									args = u8:decode(args)
 									sampProcessChatInput(args)
