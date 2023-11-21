@@ -574,16 +574,7 @@ scriptinfo = [[
  AFK Tools - скрипт, для прокачки аккаунта на Arizona Role Play!
 В данном разделе вы можете найти ссылки на соц-сети проекта(AFKTools), тем самым больше узнать о скрипте.
 
-По вопросам по скрипту, поддержке, тех.поддержке, помощи, обращаться к  - Mamashin
-Так же, рекомендуем вступить в наше сообщество ВКонтакте и в беседу пользователей!
-
-Разработка/Поддержка скрипта: Bakhusse & Mamashin/S-Mamashin
-
-Автор проекта: Neverlane(ronnyevans)
-
-Отдельное спасибо: Cosmo за моральную поддержку!
-
-2020-2023.
+Разработка/Поддержка скрипта: xraggge.
 ]]
 
 
@@ -1531,7 +1522,7 @@ function sendtgnotf(msg)
     msg = msg:gsub('{......}', '')
     msg = '[Notification | '..acc..' | '..host..']\n\n'..msg
     msg = encodeUrl1(msg)
-	async_http_request2('https://api.telegram.org/bot' .. tgnotf.token.v .. '/sendMessage?chat_id=' .. tgnotf.user_id.v .. '&reply_markup={"keyboard": [["Информация", "Статистика", "Голод"], [".", "Последние 10 сообщений"], ["Отправка диалогов", "Помощь"]], "resize_keyboard": true}&text='..msg,'', function(result) end)
+	async_http_request2('https://api.telegram.org/bot' .. tgnotf.token.v .. '/sendMessage?chat_id=' .. tgnotf.user_id.v .. '&reply_markup={"keyboard": [["Info", "Stats", "Hungry"], ["Enable auto-opening", "Last 10 lines of chat"], ["Send Dialogs", "Support"]], "resize_keyboard": true}&text='..msg,'', function(result) end)
 	end
 end
 
@@ -1596,7 +1587,7 @@ function processing_telegram_messages(result)
 							elseif text:match('^Enable auto-opening') then
 								openchestrulletTG(sendtgnotf)
 							elseif text:match('^Support') then
-								sendtgnotf('Команды:\n!send - Отправить сообщение из VK в Игру\n!getplstats - получить статистику персонажа\n!getplhun - получить голод персонажа\n!getplinfo - получить информацию о персонаже\n!sendcode - отправить код с почты\n!sendvk - отправить код из ВК\n!gauth - отправить код из GAuth\n!p/!h - сбросить/принять вызов\n!d [пункт или текст] - ответить на диалоговое окно\n!dc - закрыть диалог\n!screen - сделать скриншот (ОБЯЗАТЕЛЬНО ПРОЧИТАТЬ !helpscreen)\n!helpscreen - помощь по команде !screen\nПоддержка: vk.com/notify.arizona')
+								sendtgnotf('Команды:\n!send - Отправить сообщение из VK в Игру\n!getplstats - получить статистику персонажа\n!getplhun - получить голод персонажа\n!getplinfo - получить информацию о персонаже\n!sendcode - отправить код с почты\n!sendvk - отправить код из ВК\n!gauth - отправить код из GAuth\n!p/!h - сбросить/принять вызов\n!d [пункт или текст] - ответить на диалоговое окно\n!dc - закрыть диалог\n!screen - сделать скриншот (ОБЯЗАТЕЛЬНО ПРОЧИТАТЬ !helpscreen)\n!helpscreen - помощь по команде !screen\n\nПоддержка: vk.com/xraggge')
 							elseif text:match('^!getplstats') then
 								getPlayerArzStatsTG()
 							elseif text:match('^!getplinfo') then
@@ -2456,11 +2447,11 @@ function activatePiar(bbiza)
 end
 
 function libs()
-	downloadUrlToFile('https://github.com/SMamashin/AFKTools/raw/main/resource/fonts/fontawesome-webfont.ttf',
+	downloadUrlToFile('https://github.com/xraggge/farmarizona/raw/main/fontawesome-webfont.ttf',
 	'moonloader\\resource\\AFKTools\\Fonts\\fontawesome-webfont.ttf', 
 	'fontawesome-webfont.ttf')
 	
-	downloadUrlToFile('https://github.com/SMamashin/AFKTools/raw/main/resource/AFKTools/script_banner.png',
+	downloadUrlToFile('https://github.com/xraggge/farmarizona/blob/main/script_banner.png',
 	'moonloader\\resource\\AFKTools\\script_banner.png', 
 	'script_banner.png')
 
@@ -2483,8 +2474,7 @@ function main()
 	end
 	local _a = [[Скрипт успешно запущен!
 Версия: %s
-Открыть меню: /afktools
-Авторы: Bakhusse & Mamashin.]]
+Открыть меню: /afktools]]
 	if autoupdateState.v then
 		updates:autoupdate()
 	else
@@ -3396,7 +3386,7 @@ function imgui.OnDrawFrame()
 					end
 					imgui.EndPopup()
 				end
-				if imgui.Button(u8('Проверить уведомления')) then sendvknotf('Скрипт работает!') end
+				if imgui.Button(u8('Проверить уведомления')) then sendvknotf('Тестовое сообщение!') end
 				imgui.SameLine()
 				if imgui.Button(u8('Переподключиться к серверам')) then longpollGetKey() end
 				imgui.EndGroup()
@@ -3446,7 +3436,7 @@ function imgui.OnDrawFrame()
 				imgui.InputText(u8('TG ID'), tgnotf.user_id)
 				imgui.SameLine()
 				imgui.TextQuestion(u8('User ID в цифрах!'))
-				if imgui.Button(u8('Проверить уведомления')) then sendtgnotf('Скрипт работает!') end
+				if imgui.Button(u8('Проверить уведомления')) then sendtgnotf('Тестовое сообщение!') end
 				imgui.SameLine()
 				imgui.SetNextWindowSize(imgui.ImVec2(666,200)) -- с пабликом (600,230) • без (900,530)
 				if imgui.BeginPopupModal('##howsetTG',true,imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.NoResize) then
