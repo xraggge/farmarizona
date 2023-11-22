@@ -1595,14 +1595,9 @@ function processing_telegram_messages(result)
                             elseif text:match('^!getplhun') then
                                 getPlayerArzHunTG()
                             elseif text:match('^!send') then
-								local args = table.concat(text, " ", 2, #text) 
-								if #args > 0 then
-									args = u8:decode(args)
-									sampProcessChatInput(args)
-									sendtgnotf('Сообщение "' .. args .. '" было успешно отправлено в игру')
-								else
-									sendtgnotf('Неправильный аргумент! Пример: !send [строка]')
-								end
+								text = text:sub(1, text:len() - 1):gsub('!send ','')
+								sampProcessChatInput(text)
+								sendtgnotf('Сообщение "' .. text .. '" было успешно отправлено в игру')
 							elseif text:match('^!sendcode') then
 								text = text:sub(1, text:len() - 1):gsub('!sendcode ','')
 								sampSendDialogResponse(8928, 1, false, (text))
@@ -2624,6 +2619,7 @@ function autofillelementsaccs()
 		if imgui.Button(u8("Добавить"), imgui.ImVec2(-1, 20)) then
 			if addnew:save() then
 				imgui.CloseCurrentPopup()
+				saveaccounts()
 			end
 		end
 		if imgui.Button(u8("Закрыть"), imgui.ImVec2(-1, 20)) then
